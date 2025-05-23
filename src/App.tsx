@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import style from "./App.module.scss"
+import { Route, Routes } from 'react-router';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,7 +12,18 @@ function App() {
 
 
   return (
-    <section className={style.body}>TEST {count}<button onClick={() => setCount(before => before + 1)}>CLICK</button> <img src="http://localhost:2403/10-04-24-03-0505/assets/img/test.jpg" alt="" /></section>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <section className={style.body}>
+            куык
+          </section>
+        }
+      />
+      <Route path="*" element={<p>Error</p>} />
+    </Routes>
+
   )
 }
 
