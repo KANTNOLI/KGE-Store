@@ -1,0 +1,27 @@
+.colors {
+  background-color: #4ad66d;
+  background-color: #1e5c3a;
+  background-color: #50c878;
+
+  background-color: #1b221d;
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e5c3a;
+  width: 100%;
+  height: 100vh;
+
+  font-weight: bold;
+}
+
+.body button {
+  margin: 10px;
+}
+
+
+.body img {
+  width: 100px;
+}
