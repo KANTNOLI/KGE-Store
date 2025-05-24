@@ -1,27 +1,116 @@
 .body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    overflow: auto;
+    position: relative;
     width: 20vw;
-    height: calc(100% - 5px);
-    padding-top: 5px;
+    padding-top: 10px;
+    height: calc(100% - 10px);
 
-    background-color: red;
+    overflow: auto;
+    overflow-x: hidden;
+
+    background-color: #1b221d;
+    border-right: 3px solid #50c878;
 
     .page:first-child {
         margin-top: 0;
     }
 
     .page {
-        margin-top: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px;
         margin-right: 3px;
-        padding: 10px;
+        padding: 5px;
 
-        width: calc(100% - 34px);
-        height: 40px;
-        
-        background-color: green;
+        width: calc(100% - 30px);
+        height: 50px;
+
+        border-radius: 15px;
+        border: 2px solid #50c878;
+        background-color: #1e5c3a;
+
+        text-decoration: none;
+
+        .preview {
+            border-radius: 7px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .previewDiv {
+            position: relative;
+            width: calc(100% - 60px);
+            height: 100%;
+
+            .previewTitle {
+                font-size: 18px;
+                font-weight: normal;
+
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .previewPrice {
+                font-size: 14px;
+                font-weight: normal;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #bbffd2;
+            }
+        }
+
+
     }
+
+
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Стандартное свойство */
+}
+
+.dragPanel {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 20vw;
+    width: 5px;
+    height: 100%;
+    background-color: red;
+    z-index: 10;
+}
+
+.dragPanel:active {
+    cursor: e-resize;
+}
+
+a {
+    display: block;
+}
+
+.body::-webkit-scrollbar {
+    width: 2px;
+}
+
+.body::-webkit-scrollbar-track {
+    background-color: #193a24;
+}
+
+.body::-webkit-scrollbar-thumb {
+    background-color: #46a365;
+}
+
+.colors {
+    background-color: #4ad66d;
+    background-color: #1e5c3a;
+    background-color: #50c878;
+
+    background-color: #1b221d;
 }
