@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import style from "./App.module.scss"
 import { Route, Routes } from 'react-router';
 import axios from 'axios';
 import Store from './components/Store';
 
 function App() {
+  const window = useRef<HTMLDivElement>(null)
 
 
   return (
@@ -12,7 +13,7 @@ function App() {
       <Route
         path="/:refID?"
         element={
-          <section className={style.body}>
+          <section ref={window} className={style.body}>
             <Store></Store>
           </section>
         }
