@@ -7,9 +7,18 @@ function Store() {
 
 
     return (
-        <section className={style.style}>
-            <div className={style.list}>
-                asd
+        <section className={style.body}>
+            <div className={style.page}>
+                asd123
+            </div>
+
+            <div className={style.page}>
+                asd123
+            </div>
+
+
+            <div className={style.page}>
+                asd123
             </div>
         </section>
     );
