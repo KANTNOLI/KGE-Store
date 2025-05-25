@@ -42,7 +42,7 @@ function App() {
       }
 
       if (!tempKEY_DOWNLOAD_APP) {
-        localStorage.setItem(KEY_DOWNLOAD_APP, JSON.stringify({}))
+        localStorage.setItem(KEY_DOWNLOAD_APP, JSON.stringify({ "01-99-99-99-2403": true }))
       }
 
 

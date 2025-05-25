@@ -48,11 +48,12 @@ function Apps() {
     })
     const [Downloaded, setDownloaded] = useState<KeyDownloadAppItf>({})
     const [app, setApp] = useState<apps | null>(null)
+    const [Timer, setTimer] = useState<number>(0)
     const params = useParams();
 
-    const RenderDownloadPage = (): ReactNode => {
+    const RenderDownloadPage = (sec: number): ReactNode => {
         const Size = Download.size
-        const CountLoad = Math.floor((Download.loaded / Download.size) * 100)
+        const CountLoad = (Download.loaded / Download.size) * 100
 
         const startDownloadBTN =
             (<button
@@ -63,24 +64,37 @@ function Apps() {
                         type: 1,
                         size: 100,
                     })
+                    localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
+                        refID: params.refID,
+                        type: 1,
+                        loaded: 0,
+                        size: 0,
+                    }))
+                    setTimer(0)
                 }} className={style.downloadBTN}>
                 Download
             </button>)
 
-        const loadigResult = <code className={style.downloadigPanelStart}>{`[${loadingState(CountLoad)}] ${CountLoad}% ${Size}KB s`}</code>
-        const loadigAwait = <code className={style.downloadigPanelStart}>{`[${loadingState(0)}] wait server s`}</code>
+        const loadigResult = <code className={style.downloadigPanelStart}>{`[${loadingState(CountLoad)}] ${Size}KB ${sec}s`}</code>
+        const loadigAwait = <code className={style.downloadigPanelStart}>{`wait server response`}</code>
 
-        console.log(Download.type);
 
         if (Download.refID == params.refID) {
-            switch (Download.type) {
-                case 1:
-                    return loadigAwait
-                case 2:
-                    return loadigResult
-                default:
-                    return startDownloadBTN
+            console.log(Downloaded);
+
+
+            if (!Downloaded[params.refID]) {
+                switch (Download.type) {
+                    case 1:
+                        return loadigAwait
+                    case 2:
+                        return loadigResult
+                    default:
+                        return startDownloadBTN
+                }
             }
+
+            return <p>loaded</p>
         }
 
         return startDownloadBTN
@@ -98,8 +112,13 @@ function Apps() {
             }
         }
 
+        const inter = setInterval(() => {
+            setTimer(before => before + 1)
+        }, 100);
+
         window.addEventListener("storage", HandleTrackLStorage)
         return () => {
+            clearInterval(inter)
             window.removeEventListener("storage", HandleTrackLStorage)
         }
     }, [])
@@ -114,6 +133,8 @@ function Apps() {
                 setApp(null)
             }
         })
+
+        setDownloaded(JSON.parse(localStorage.getItem(KEY_DOWNLOAD_APP) || "{}"))
 
     }, [params, Download])
 
@@ -131,7 +152,7 @@ function Apps() {
                     </div>
                 </div>
                 <div className={style.downloadig}>
-                    {RenderDownloadPage()}
+                    {RenderDownloadPage(Timer / 10)}
                 </div>
             </div>
             <div className={style.bodyApp}>1</div>
