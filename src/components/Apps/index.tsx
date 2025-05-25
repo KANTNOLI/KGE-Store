@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import style from "./Apps.module.scss"
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import axios from "axios";
 interface preview {
     "img": string,
@@ -36,8 +36,6 @@ const loadingState = (progress: number) => {
     const space = "   ";
     const load = Math.floor(progress / 10);
 
-    console.log();
-
     return `${part.repeat(load)}${space.repeat(10 - load)}`;
 };
 
@@ -52,7 +50,41 @@ function Apps() {
     const [app, setApp] = useState<apps | null>(null)
     const params = useParams();
 
+    const RenderDownloadPage = (): ReactNode => {
+        const Size = Download.size
+        const CountLoad = Math.floor((Download.loaded / Download.size) * 100)
 
+        const startDownloadBTN =
+            (<button
+                onClick={() => {
+                    setDownload({
+                        refID: params.refID || "",
+                        loaded: 10,
+                        type: 1,
+                        size: 100,
+                    })
+                }} className={style.downloadBTN}>
+                Download
+            </button>)
+
+        const loadigResult = <code className={style.downloadigPanelStart}>{`[${loadingState(CountLoad)}] ${CountLoad}% ${Size}KB s`}</code>
+        const loadigAwait = <code className={style.downloadigPanelStart}>{`[${loadingState(0)}] wait server s`}</code>
+
+        console.log(Download.type);
+
+        if (Download.refID == params.refID) {
+            switch (Download.type) {
+                case 1:
+                    return loadigAwait
+                case 2:
+                    return loadigResult
+                default:
+                    return startDownloadBTN
+            }
+        }
+
+        return startDownloadBTN
+    }
 
     useEffect(() => {
         const HandleTrackLStorage = (event: StorageEvent) => {
@@ -64,7 +96,6 @@ function Apps() {
                     setDownloaded(JSON.parse(localStorage.getItem(KEY_DOWNLOAD_APP) || "{}"))
                     break;
             }
-            console.log(event.key);
         }
 
         window.addEventListener("storage", HandleTrackLStorage)
@@ -84,8 +115,6 @@ function Apps() {
             }
         })
 
-        console.log(Download);
-
     }, [params, Download])
 
 
@@ -102,10 +131,7 @@ function Apps() {
                     </div>
                 </div>
                 <div className={style.downloadig}>
-                    {Download.refID == params.refID ?
-                        <code className={style.downloadigPanelStart}>{`[${loadingState(55)}] 18% 32.2MB 21.2s`}</code> :
-                        <button className={style.downloadBTN}>Download</button>}
-
+                    {RenderDownloadPage()}
                 </div>
             </div>
             <div className={style.bodyApp}>1</div>

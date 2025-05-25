@@ -93,10 +93,11 @@ function Store() {
         // setInterval(() => {
         //     localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
         //         refID: "10-04-24-03-0505",
-        //         loaded: "100",
-        //         size: "1000",
+        //         type: 1,
+        //         loaded: rand(100, 1000),
+        //         size: 1000,
         //     }))
-        // }, 2000);
+        // }, 1000);
 
     }, [])
 

@@ -36,6 +36,7 @@ function App() {
         localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
           refID: "-1",
           loaded: -1,
+          type: 0,
           size: -1,
         }))
       }
