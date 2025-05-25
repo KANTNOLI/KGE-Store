@@ -17,12 +17,23 @@ interface apps {
     "desc2": string,
 }
 
+const loadingState = (progress: number) => {
+    const part = "=";
+    const space = "   ";
+    const load = Math.floor(progress / 10);
+
+    console.log();
+    
+    return `${part.repeat(load)}${space.repeat(10 - load)}`;
+};
+
 
 
 function Apps() {
     const [app, setApp] = useState<apps | null>(null)
-
     const params = useParams();
+
+    
 
     useEffect(() => {
         axios.get(`http://localhost:2403/api/getApp?id=${params.refID}`).then((res) => {
@@ -47,7 +58,7 @@ function Apps() {
                     </div>
                 </div>
                 <div className={style.downloadig}>
-
+                    <code className={style.downloadigPanelStart}>{`[${loadingState(55)}] 18% 32.2MB`}</code>
                 </div>
             </div>
             <div className={style.bodyApp}>1</div>
