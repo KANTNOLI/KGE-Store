@@ -12,8 +12,9 @@ interface apps {
     "refID": string,
     "preview": preview,
     "title": string,
-    "desc": string,
-    "img": string[]
+    "desc1": string,
+    "img": string[],
+    "desc2": string,
 }
 
 
