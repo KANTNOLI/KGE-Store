@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import style from "./App.module.scss"
 import { Route, Routes } from 'react-router';
-import axios from 'axios';
 import Store from './components/Store';
 import Apps from './components/Apps';
 

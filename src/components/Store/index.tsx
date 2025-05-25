@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link } from "react-router";
 import style from "./Store.module.scss"
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -26,7 +26,7 @@ function Store() {
 
     const HandleDragMove = useCallback(
         (event: MouseEvent) => {
-            if (event.clientX > 78 && event.clientX < 500) {
+            if (event.clientX > 78 && event.clientX < 800) {
                 if (MainPanel.current && DragPanel.current) {
                     MainPanel.current.style.width = `${event.clientX}px`
                     DragPanel.current.style.left = `${event.clientX}px`
@@ -51,7 +51,7 @@ function Store() {
     )
 
     useEffect(() => {
-        axios.get("http://localhost:2403/api/getStore").then((res) => {
+        axios.get("http://localhost:2403/api/getAppList").then((res) => {
             const temp = res.data as apps[]
             setApps(temp)
         })
