@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import style from "./Apps.module.scss"
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 interface preview {
     "img": string,
@@ -17,23 +17,38 @@ interface apps {
     "desc2": string,
 }
 
+
+
 const loadingState = (progress: number) => {
     const part = "=";
     const space = "   ";
     const load = Math.floor(progress / 10);
 
     console.log();
-    
+
     return `${part.repeat(load)}${space.repeat(10 - load)}`;
 };
 
-
+const KEY_TEST = "KEY_TEST"
 
 function Apps() {
     const [app, setApp] = useState<apps | null>(null)
     const params = useParams();
 
-    
+
+
+    useEffect(() => {
+        const HandleTrackLStorage = (event: StorageEvent) => {
+            console.log(event.key);
+        }
+
+        window.addEventListener("storage", HandleTrackLStorage)
+
+        return () => {
+            window.removeEventListener("storage", HandleTrackLStorage)
+        }
+    }, [])
+
 
     useEffect(() => {
         axios.get(`http://localhost:2403/api/getApp?id=${params.refID}`).then((res) => {
@@ -44,7 +59,10 @@ function Apps() {
                 setApp(null)
             }
         })
+
     }, [params])
+
+
 
 
     return (app &&
@@ -58,7 +76,7 @@ function Apps() {
                     </div>
                 </div>
                 <div className={style.downloadig}>
-                    <code className={style.downloadigPanelStart}>{`[${loadingState(55)}] 18% 32.2MB`}</code>
+                    <code className={style.downloadigPanelStart}>{`[${loadingState(55)}] 18% 32.2MB 21.2s`}</code>
                 </div>
             </div>
             <div className={style.bodyApp}>1</div>

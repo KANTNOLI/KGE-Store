@@ -16,6 +16,26 @@ interface apps {
     "img": string[],
     "desc2": string,
 }
+function rand(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+const dispatchStorageEvent = (key: string, newValue: string | null) => {
+    window.dispatchEvent(new StorageEvent('storage', {
+        key,
+        newValue,
+        oldValue: localStorage.getItem(key),
+        url: window.location.href,
+        storageArea: localStorage
+    }));
+};
+
+const originalSetItem = localStorage.setItem;
+localStorage.setItem = function (key: string, value: string) {
+    originalSetItem.call(this, key, value);
+    dispatchStorageEvent(key, value);
+};
 
 
 
@@ -56,6 +76,11 @@ function Store() {
             const temp = res.data as apps[]
             setApps(temp)
         })
+
+        setInterval(() => {
+            localStorage.setItem("KEY_TEST", `${rand(0, 100)}`)
+        }, 2000);
+
     }, [])
 
     useEffect(() => {
