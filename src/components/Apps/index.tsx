@@ -22,12 +22,13 @@ const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
 
 interface KeyLoadStateItf {
     refID: string,
+    type: 0 | 1 | 2,
     loaded: number,
     size: number,
 }
 
 interface KeyDownloadAppItf {
-    download: string[]
+    [key: string]: boolean
 }
 
 const loadingState = (progress: number) => {
@@ -41,6 +42,13 @@ const loadingState = (progress: number) => {
 };
 
 function Apps() {
+    const [Download, setDownload] = useState<KeyLoadStateItf>({
+        refID: "-1",
+        type: 0,
+        loaded: -1,
+        size: -1
+    })
+    const [Downloaded, setDownloaded] = useState<KeyDownloadAppItf>({})
     const [app, setApp] = useState<apps | null>(null)
     const params = useParams();
 
@@ -48,11 +56,18 @@ function Apps() {
 
     useEffect(() => {
         const HandleTrackLStorage = (event: StorageEvent) => {
+            switch (event.key) {
+                case KEY_LOAD_STATE:
+                    setDownload(JSON.parse(localStorage.getItem(KEY_LOAD_STATE) || "{}"))
+                    break;
+                case KEY_DOWNLOAD_APP:
+                    setDownloaded(JSON.parse(localStorage.getItem(KEY_DOWNLOAD_APP) || "{}"))
+                    break;
+            }
             console.log(event.key);
         }
 
         window.addEventListener("storage", HandleTrackLStorage)
-
         return () => {
             window.removeEventListener("storage", HandleTrackLStorage)
         }
@@ -69,7 +84,9 @@ function Apps() {
             }
         })
 
-    }, [params])
+        console.log(Download);
+
+    }, [params, Download])
 
 
 
@@ -85,7 +102,10 @@ function Apps() {
                     </div>
                 </div>
                 <div className={style.downloadig}>
-                    <code className={style.downloadigPanelStart}>{`[${loadingState(55)}] 18% 32.2MB 21.2s`}</code>
+                    {Download.refID == params.refID ?
+                        <code className={style.downloadigPanelStart}>{`[${loadingState(55)}] 18% 32.2MB 21.2s`}</code> :
+                        <button className={style.downloadBTN}>Download</button>}
+
                 </div>
             </div>
             <div className={style.bodyApp}>1</div>

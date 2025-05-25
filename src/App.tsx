@@ -11,12 +11,16 @@ const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
 interface KeyLoadStateItf {
   refID: string,
   loaded: number,
+  type: 0 | 1 | 2,
   size: number,
 }
 
+//0 - off, 1 - need load, 2 - downloading
+
 interface KeyDownloadAppItf {
-  download: string[]
+  [key: string]: boolean
 }
+
 
 
 
@@ -37,9 +41,7 @@ function App() {
       }
 
       if (!tempKEY_DOWNLOAD_APP) {
-        localStorage.setItem(KEY_DOWNLOAD_APP, JSON.stringify({
-          download: []
-        }))
+        localStorage.setItem(KEY_DOWNLOAD_APP, JSON.stringify({}))
       }
 
 

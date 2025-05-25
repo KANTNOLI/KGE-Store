@@ -23,11 +23,12 @@ const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
 interface KeyLoadStateItf {
     refID: string,
     loaded: number,
+    type: 0 | 1 | 2,
     size: number,
 }
 
 interface KeyDownloadAppItf {
-    download: string[]
+    [key: string]: boolean
 }
 
 function rand(min: number, max: number): number {
@@ -89,13 +90,13 @@ function Store() {
             setApps(temp)
         })
 
-        setInterval(() => {
-            localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
-                refID: "10-04-24-03-0505",
-                loaded: "100",
-                size: "1000",
-            }))
-        }, 2000);
+        // setInterval(() => {
+        //     localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
+        //         refID: "10-04-24-03-0505",
+        //         loaded: "100",
+        //         size: "1000",
+        //     }))
+        // }, 2000);
 
     }, [])
 
