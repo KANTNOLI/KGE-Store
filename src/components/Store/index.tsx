@@ -44,7 +44,7 @@ function Store() {
     )
     const HandleDragDisable = useCallback(
         () => {
-            document.body.style.cursor = "auto"
+            document.body.style.cursor = "default"
             document.body.removeEventListener("mousemove", HandleDragMove)
         },
         [HandleDragMove],

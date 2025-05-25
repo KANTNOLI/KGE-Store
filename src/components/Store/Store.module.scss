@@ -1,6 +1,6 @@
 .body {
     position: relative;
-    width: 20vw;
+    width: 250px;
     padding-top: 10px;
     height: calc(100% - 10px);
 
@@ -65,24 +65,17 @@
 
     }
 
-
-    -webkit-user-select: none;
-    /* Safari */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
-    user-select: none;
-    /* Стандартное свойство */
+    z-index: 2;
 }
 
 .dragPanel {
-    cursor: pointer;
+    // cursor: pointer;
     position: absolute;
     top: 0;
-    left: 20vw;
+    left: 250px;
     width: 5px;
     height: 100%;
+
     z-index: 10;
 }
 
