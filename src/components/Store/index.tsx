@@ -16,6 +16,20 @@ interface apps {
     "img": string[],
     "desc2": string,
 }
+
+const KEY_LOAD_STATE = "KEY_LOAD_STATE"
+const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
+
+interface KeyLoadStateItf {
+    refID: string,
+    loaded: number,
+    size: number,
+}
+
+interface KeyDownloadAppItf {
+    download: string[]
+}
+
 function rand(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -36,8 +50,6 @@ localStorage.setItem = function (key: string, value: string) {
     originalSetItem.call(this, key, value);
     dispatchStorageEvent(key, value);
 };
-
-
 
 function Store() {
 
@@ -78,7 +90,11 @@ function Store() {
         })
 
         setInterval(() => {
-            localStorage.setItem("KEY_TEST", `${rand(0, 100)}`)
+            localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
+                refID: "10-04-24-03-0505",
+                loaded: "100",
+                size: "1000",
+            }))
         }, 2000);
 
     }, [])

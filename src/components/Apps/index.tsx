@@ -17,7 +17,18 @@ interface apps {
     "desc2": string,
 }
 
+const KEY_LOAD_STATE = "KEY_LOAD_STATE"
+const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
 
+interface KeyLoadStateItf {
+    refID: string,
+    loaded: number,
+    size: number,
+}
+
+interface KeyDownloadAppItf {
+    download: string[]
+}
 
 const loadingState = (progress: number) => {
     const part = "=";
@@ -28,8 +39,6 @@ const loadingState = (progress: number) => {
 
     return `${part.repeat(load)}${space.repeat(10 - load)}`;
 };
-
-const KEY_TEST = "KEY_TEST"
 
 function Apps() {
     const [app, setApp] = useState<apps | null>(null)
