@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router";
 import style from "./Store.module.scss"
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
-
 interface preview {
     "img": string,
     "header": string,
@@ -17,33 +16,13 @@ interface apps {
     "img": string[]
 }
 
-interface props {
-    windowWidth: number
-}
 
 
 function Store() {
-    const params = useParams();
-    console.log(params ? params : "no");
+
     const [apps, setApps] = useState<apps[]>([])
     const MainPanel = useRef<HTMLDivElement>(null)
     const DragPanel = useRef<HTMLDivElement>(null)
-
-    const HandleDragActive = useCallback(
-        (event: MouseEvent) => {
-            document.body.style.cursor = "e-resize"
-            document.body.addEventListener("mousemove", HandleDragMove)
-        },
-        [],
-    )
-
-    const HandleDragDisable = useCallback(
-        (event: MouseEvent) => {
-            document.body.style.cursor = "auto"
-            document.body.removeEventListener("mousemove", HandleDragMove)
-        },
-        [],
-    )
 
     const HandleDragMove = useCallback(
         (event: MouseEvent) => {
@@ -56,21 +35,26 @@ function Store() {
         },
         [],
     )
-
-
-
+    const HandleDragActive = useCallback(
+        () => {
+            document.body.style.cursor = "e-resize"
+            document.body.addEventListener("mousemove", HandleDragMove)
+        },
+        [HandleDragMove],
+    )
+    const HandleDragDisable = useCallback(
+        () => {
+            document.body.style.cursor = "auto"
+            document.body.removeEventListener("mousemove", HandleDragMove)
+        },
+        [HandleDragMove],
+    )
 
     useEffect(() => {
         axios.get("http://localhost:2403/api/getStore").then((res) => {
             const temp = res.data as apps[]
             setApps(temp)
         })
-
-
-        console.log(MainPanel.current?.offsetWidth);
-
-        console.log(document.body.offsetWidth);
-
     }, [])
 
     useEffect(() => {
@@ -80,7 +64,6 @@ function Store() {
             DragPanel.current?.removeEventListener("mousedown", HandleDragActive)
             document.body.removeEventListener("mouseup", HandleDragDisable)
         }
-
     }, [apps])
 
     return (
