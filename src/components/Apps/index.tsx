@@ -78,12 +78,11 @@ function Apps() {
         const loadigResult = <code className={style.downloadigPanelStart}>{`[${loadingState(CountLoad)}] ${Size}KB ${sec}s`}</code>
         const loadigAwait = <code className={style.downloadigPanelStart}>{`wait server response`}</code>
 
+        if (Downloaded[params.refID || "ad"]) {
+            return <p className={style.ready}>Load</p>
+        } else {
 
-        if (Download.refID == params.refID) {
-            console.log(Downloaded);
-
-
-            if (!Downloaded[params.refID]) {
+            if (Download.refID == params.refID) {
                 switch (Download.type) {
                     case 1:
                         return loadigAwait
@@ -94,10 +93,8 @@ function Apps() {
                 }
             }
 
-            return <p>loaded</p>
+            return startDownloadBTN
         }
-
-        return startDownloadBTN
     }
 
     useEffect(() => {

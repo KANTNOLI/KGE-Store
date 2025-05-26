@@ -90,14 +90,14 @@ function Store() {
             setApps(temp)
         })
 
-        setInterval(() => {
-            localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
-                refID: "10-04-24-03-0505",
-                type: 2,
-                loaded: rand(100, 1000),
-                size: 1000,
-            }))
-        }, 1000);
+        // setInterval(() => {
+        //     localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
+        //         refID: "10-04-24-03-0505",
+        //         type: 2,
+        //         loaded: rand(100, 1000),
+        //         size: 1000,
+        //     }))
+        // }, 1000);
 
     }, [])
 
