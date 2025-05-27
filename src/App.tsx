@@ -57,7 +57,7 @@ function App() {
   return (
     <Routes>
       <Route
-        path="/:refID?"
+        path="/"
         element={
           <section ref={window} className={style.body}>
             <Store></Store>

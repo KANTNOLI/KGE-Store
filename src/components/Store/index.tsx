@@ -114,7 +114,7 @@ function Store() {
         <>
             <section ref={MainPanel} className={style.body}>
                 {apps.map((app) =>
-                    <Link key={app.refID} to={`/${app.refID}`} className={style.page}>
+                    <Link key={app.refID} to={`/?refID=${app.refID}`} className={style.page}>
                         <img className={style.preview} src={app.preview.img} alt="preview" />
                         <div className={style.previewDiv}>
                             <p className={style.previewTitle}>{app.preview.header}</p>

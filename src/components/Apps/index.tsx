@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import style from "./Apps.module.scss"
 import { useEffect, useState, type ReactNode } from "react";
 import axios from "axios";
@@ -49,7 +49,11 @@ function Apps() {
     const [Downloaded, setDownloaded] = useState<KeyDownloadAppItf>({})
     const [app, setApp] = useState<apps | null>(null)
     const [Timer, setTimer] = useState<number>(0)
-    const params = useParams();
+
+    const [searchParams] = useSearchParams();
+    const refID = searchParams.get('refID');
+    console.log(refID);
+
 
     const RenderDownloadPage = (sec: number): ReactNode => {
         const Size = Download.size
@@ -59,13 +63,13 @@ function Apps() {
             (<button
                 onClick={() => {
                     setDownload({
-                        refID: params.refID || "",
+                        refID: refID || "",
                         loaded: 10,
                         type: 1,
                         size: 100,
                     })
                     localStorage.setItem(KEY_LOAD_STATE, JSON.stringify({
-                        refID: params.refID,
+                        refID: refID,
                         type: 1,
                         loaded: 0,
                         size: 0,
@@ -78,11 +82,11 @@ function Apps() {
         const loadigResult = <code className={style.downloadigPanelStart}>{`[${loadingState(CountLoad)}] ${Size}KB ${sec}s`}</code>
         const loadigAwait = <code className={style.downloadigPanelStart}>{`wait server response`}</code>
 
-        if (Downloaded[params.refID || "ad"]) {
+        if (Downloaded[refID || "ad"]) {
             return <button className={style.ready}>Uploaded</button>
         } else {
 
-            if (Download.refID == params.refID) {
+            if (Download.refID == refID) {
                 switch (Download.type) {
                     case 1:
                         return loadigAwait
@@ -108,12 +112,17 @@ function Apps() {
                     break;
             }
         }
+        window.addEventListener("storage", HandleTrackLStorage)
 
         const inter = setInterval(() => {
-            setTimer(before => before + 1)
+            if (Download.type == 2) {
+                setTimer(before => before + 1)
+            } else {
+                clearInterval(inter)
+            }
+
         }, 100);
 
-        window.addEventListener("storage", HandleTrackLStorage)
         return () => {
             clearInterval(inter)
             window.removeEventListener("storage", HandleTrackLStorage)
@@ -122,7 +131,7 @@ function Apps() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:2403/api/getApp?id=${params.refID}`).then((res) => {
+        axios.get(`http://localhost:2403/api/getApp?id=${refID}`).then((res) => {
             if (res.data.preview) {
                 const temp = res.data as apps
                 setApp(temp)
@@ -133,7 +142,7 @@ function Apps() {
 
         setDownloaded(JSON.parse(localStorage.getItem(KEY_DOWNLOAD_APP) || "{}"))
 
-    }, [params, Download])
+    }, [searchParams, Download])
 
 
 
