@@ -1,7 +1,9 @@
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
+
 import style from "./Apps.module.scss"
 import { useEffect, useState, type ReactNode } from "react";
 import axios from "axios";
+
 interface preview {
     "img": string,
     "header": string,
@@ -40,20 +42,22 @@ const loadingState = (progress: number) => {
 };
 
 function Apps() {
+    // Триггердля установки приложух
     const [Download, setDownload] = useState<KeyLoadStateItf>({
         refID: "-1",
         type: 0,
         loaded: -1,
         size: -1
     })
+    // Обьект массива ключей, скаченных приложух, пока просто с данными true or null
     const [Downloaded, setDownloaded] = useState<KeyDownloadAppItf>({})
+    // Описание приложения по Query строке 
     const [app, setApp] = useState<apps | null>(null)
+    // Таймер дефолт
     const [Timer, setTimer] = useState<number>(0)
 
     const [searchParams] = useSearchParams();
     const refID: string | null = searchParams.get('refID') || null;
-    console.log(refID);
-
 
     const RenderDownloadPage = (sec: number): ReactNode => {
         const Size = Download.size
@@ -82,17 +86,22 @@ function Apps() {
         const loadigResult = <code className={style.downloadigPanelStart}>{`[${loadingState(CountLoad)}] ${Size}KB ${sec}s`}</code>
         const loadigAwait = <code className={style.downloadigPanelStart}>{`wait server response`}</code>
 
-        if (Downloaded[refID || "ad"]) {
+        // Если скачивали уже
+        if (Downloaded[refID || ""]) {
             return <button className={style.ready}>Uploaded</button>
         } else {
 
+            // проверка на открыто ли у нас точно та установка
             if (Download.refID == refID) {
                 switch (Download.type) {
                     case 1:
+                        // ждем ответа от сервера
                         return loadigAwait
                     case 2:
+                        // начало скачивания
                         return loadigResult
                     default:
+                        // начать установку 
                         return startDownloadBTN
                 }
             }
@@ -103,6 +112,7 @@ function Apps() {
 
     useEffect(() => {
         const HandleTrackLStorage = (event: StorageEvent) => {
+            // ждем обновление localstore и обновляем данные
             switch (event.key) {
                 case KEY_LOAD_STATE:
                     setDownload(JSON.parse(localStorage.getItem(KEY_LOAD_STATE) || "{}"))
@@ -149,7 +159,6 @@ function Apps() {
 
 
 
-
     return (app &&
         <section className={style.body}>
             <div className={style.header}>
@@ -164,9 +173,22 @@ function Apps() {
                     {RenderDownloadPage(Timer / 10)}
                 </div>
             </div>
-            <div className={style.bodyApp}>1</div>
+            <div className={style.bodyApp}>
+                <p className={style.bodyDesc1}>{app.desc1}</p>
+
+                {
+                    app.img.map((src, id) =>
+                        <div key={id} className={style.photo}>
+                            <img src={src} alt="123" className={style.photoImg}/>
+                        </div>
+                    )
+                }
+                <p className={style.bodyDesc2}>{app.desc2}</p>
+            </div>
             <div className={style.footer}>1</div>
         </section>);
 }
+
+
 
 export default Apps;

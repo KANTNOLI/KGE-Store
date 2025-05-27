@@ -60,7 +60,7 @@ function Store() {
 
     const HandleDragMove = useCallback(
         (event: MouseEvent) => {
-            if (event.clientX > 78 && event.clientX < 800) {
+            if (event.clientX > 78 && event.clientX < 700) {
                 if (MainPanel.current && DragPanel.current) {
                     MainPanel.current.style.width = `${event.clientX}px`
                     DragPanel.current.style.left = `${event.clientX}px`
