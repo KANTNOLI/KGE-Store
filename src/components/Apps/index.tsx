@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import style from "./Apps.module.scss"
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import axios from "axios";
 interface preview {
     "img": string,

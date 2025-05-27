@@ -8,18 +8,18 @@ const KEY_LOAD_STATE = "KEY_LOAD_STATE"
 const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
 
 
-interface KeyLoadStateItf {
-  refID: string,
-  loaded: number,
-  type: 0 | 1 | 2,
-  size: number,
-}
+// interface KeyLoadStateItf {
+//   refID: string,
+//   loaded: number,
+//   type: 0 | 1 | 2,
+//   size: number,
+// }
 
-//0 - off, 1 - need load, 2 - downloading
+// //0 - off, 1 - need load, 2 - downloading, 3 - ready
 
-interface KeyDownloadAppItf {
-  [key: string]: boolean
-}
+// interface KeyDownloadAppItf {
+//   [key: string]: boolean
+// }
 
 
 

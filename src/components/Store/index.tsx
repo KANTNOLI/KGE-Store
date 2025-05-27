@@ -17,23 +17,23 @@ interface apps {
     "desc2": string,
 }
 
-const KEY_LOAD_STATE = "KEY_LOAD_STATE"
-const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
+// const KEY_LOAD_STATE = "KEY_LOAD_STATE"
+// const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
 
-interface KeyLoadStateItf {
-    refID: string,
-    loaded: number,
-    type: 0 | 1 | 2,
-    size: number,
-}
+// interface KeyLoadStateItf {
+//     refID: string,
+//     loaded: number,
+//     type: 0 | 1 | 2,
+//     size: number,
+// }
 
-interface KeyDownloadAppItf {
-    [key: string]: boolean
-}
+// interface KeyDownloadAppItf {
+//     [key: string]: boolean
+// }
 
-function rand(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// function rand(min: number, max: number): number {
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 
 
 const dispatchStorageEvent = (key: string, newValue: string | null) => {
