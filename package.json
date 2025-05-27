@@ -17,9 +17,7 @@
     "react-router": "^7.6.0",
     "react-slick": "^0.30.3",
     "sass": "^1.89.0",
-    "scss": "^0.2.4",
-    "slick-carousel": "^1.8.1",
-    "swiper": "^11.2.8"
+    "scss": "^0.2.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

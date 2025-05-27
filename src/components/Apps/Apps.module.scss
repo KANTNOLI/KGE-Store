@@ -5,6 +5,7 @@
 
     flex: 1;
     z-index: 1;
+    padding-bottom: 80px;
 
     .header {
         display: flex;
@@ -112,7 +113,6 @@
         padding: 20px;
         width: 100%;
         height: fit-content;
-        box-sizing: border-box;
 
         box-sizing: border-box;
 
@@ -132,7 +132,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 355px;
             max-width: 480px;
             min-height: 220px;
 
@@ -151,6 +150,13 @@
     }
 
     .footer {
+        padding: 20px;
+        box-sizing: border-box;
         width: 100%;
+
+        p{
+            font-size: 18px;
+            color: #50c87871;
+        }
     }
 }

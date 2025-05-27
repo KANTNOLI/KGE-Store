@@ -10,6 +10,7 @@
 
     border-right: 3px solid #50c878;
 
+
     .page:first-child {
         margin-top: 0;
     }
@@ -90,18 +91,6 @@
 
 a {
     display: block;
-}
-
-*::-webkit-scrollbar {
-    width: 2px;
-}
-
-*::-webkit-scrollbar-track {
-    background-color: #193a24;
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: #46a365;
 }
 
 .colors {

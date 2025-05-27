@@ -17,6 +17,7 @@ interface apps {
     "desc1": string,
     "img": string[],
     "desc2": string,
+    "footer": string
 }
 
 const KEY_LOAD_STATE = "KEY_LOAD_STATE"
@@ -175,17 +176,18 @@ function Apps() {
             </div>
             <div className={style.bodyApp}>
                 <p className={style.bodyDesc1}>{app.desc1}</p>
-
                 {
                     app.img.map((src, id) =>
                         <div key={id} className={style.photo}>
-                            <img src={src} alt="123" className={style.photoImg}/>
+                            <img src={src} alt="Error!" className={style.photoImg} />
                         </div>
                     )
                 }
                 <p className={style.bodyDesc2}>{app.desc2}</p>
             </div>
-            <div className={style.footer}>1</div>
+            <div className={style.footer}>
+                <p>{app.footer}</p>
+            </div>
         </section>);
 }
 
