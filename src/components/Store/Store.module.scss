@@ -2,7 +2,7 @@
     position: relative;
     width: 250px;
     padding-top: 10px;
-    height: calc(100% - 10px);
+    height: inherit;
 
     overflow: auto;
     overflow-x: hidden;

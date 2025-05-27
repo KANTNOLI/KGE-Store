@@ -51,7 +51,7 @@ function Apps() {
     const [Timer, setTimer] = useState<number>(0)
 
     const [searchParams] = useSearchParams();
-    const refID = searchParams.get('refID');
+    const refID: string | null = searchParams.get('refID') || null;
     console.log(refID);
 
 
@@ -131,16 +131,19 @@ function Apps() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:2403/api/getApp?id=${refID}`).then((res) => {
-            if (res.data.preview) {
-                const temp = res.data as apps
-                setApp(temp)
-            } else {
-                setApp(null)
-            }
-        })
+        if (refID) {
+            axios.get(`http://localhost:2403/api/getApp?id=${refID}`).then((res) => {
+                if (res.data.preview) {
+                    const temp = res.data as apps
+                    setApp(temp)
+                } else {
+                    setApp(null)
+                }
+            })
 
-        setDownloaded(JSON.parse(localStorage.getItem(KEY_DOWNLOAD_APP) || "{}"))
+            setDownloaded(JSON.parse(localStorage.getItem(KEY_DOWNLOAD_APP) || "{}"))
+        }
+
 
     }, [searchParams, Download])
 
