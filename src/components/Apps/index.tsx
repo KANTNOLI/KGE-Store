@@ -79,7 +79,7 @@ function Apps() {
         const loadigAwait = <code className={style.downloadigPanelStart}>{`wait server response`}</code>
 
         if (Downloaded[params.refID || "ad"]) {
-            return <p className={style.ready}>Load</p>
+            return <button className={style.ready}>Uploaded</button>
         } else {
 
             if (Download.refID == params.refID) {
