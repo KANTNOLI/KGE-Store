@@ -25,7 +25,7 @@ const KEY_DOWNLOAD_APP = "KEY_DOWNLOAD_APP"
 
 interface KeyLoadStateItf {
     refID: string,
-    type: 0 | 1 | 2,
+    type: 0 | 1 | 2 | 3,
     loaded: number,
     size: number,
 }

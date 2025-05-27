@@ -23,7 +23,7 @@ interface apps {
 // interface KeyLoadStateItf {
 //     refID: string,
 //     loaded: number,
-//     type: 0 | 1 | 2,
+//     type: 0 | 1 | 2 | 3,
 //     size: number,
 // }
 
